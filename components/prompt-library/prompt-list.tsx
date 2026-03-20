@@ -31,14 +31,18 @@ export function PromptList({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-max">
-      {prompts.map((prompt) => (
-        <PromptCard
+      {prompts.map((prompt, index) => (
+        <div
           key={prompt.id}
-          prompt={prompt}
-          isFavorite={favorites.has(prompt.id)}
-          onFavoriteToggle={onFavoriteToggle}
-          onClick={() => onPromptClick?.(prompt)}
-        />
+          style={{ animationDelay: `${index * 75}ms` }}
+        >
+          <PromptCard
+            prompt={prompt}
+            isFavorite={favorites.has(prompt.id)}
+            onFavoriteToggle={onFavoriteToggle}
+            onClick={() => onPromptClick?.(prompt)}
+          />
+        </div>
       ))}
     </div>
   );

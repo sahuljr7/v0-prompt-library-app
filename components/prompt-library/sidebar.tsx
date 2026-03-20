@@ -18,7 +18,7 @@ export function Sidebar({
 }: SidebarProps) {
   return (
     <div className="w-64 bg-secondary/30 border-r border-border flex flex-col h-full">
-      <div className="p-6 border-b border-border">
+      <div className="p-6 border-b border-border animate-fade-in">
         <h2 className="text-lg font-semibold text-foreground">Categories</h2>
         <p className="text-sm text-muted-foreground mt-1">
           {Object.values(promptCounts).reduce((a, b) => a + b, 0)} total prompts
@@ -29,7 +29,7 @@ export function Sidebar({
         <div className="p-4 space-y-2">
           <Button
             variant={selectedCategory === null ? 'default' : 'ghost'}
-            className="w-full justify-between"
+            className="w-full justify-between hover:translate-x-1 transition-all duration-300"
             onClick={() => onSelectCategory(null)}
           >
             <span>All Prompts</span>
@@ -38,12 +38,13 @@ export function Sidebar({
             </span>
           </Button>
 
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <Button
               key={category}
               variant={selectedCategory === category ? 'default' : 'ghost'}
-              className="w-full justify-between"
+              className="w-full justify-between hover:translate-x-1 transition-all duration-300 animate-fade-in"
               onClick={() => onSelectCategory(category)}
+              style={{ animationDelay: `${(index + 1) * 50}ms` }}
             >
               <span>{category}</span>
               <span className="text-xs bg-muted px-2 py-1 rounded">

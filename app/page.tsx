@@ -1,5 +1,21 @@
-import { PromptLibraryMain } from '@/components/prompt-library/library-main';
+import { Navbar } from '@/components/navigation/navbar';
+import { Footer } from '@/components/navigation/footer';
+import { HeroSection } from '@/components/landing/hero-section';
+import { FeaturesSection } from '@/components/landing/features-section';
+import { FAQSection } from '@/components/landing/faq-section';
+import { CTASection } from '@/components/landing/cta-section';
 
 export default function Home() {
-  return <PromptLibraryMain />;
+  return (
+    <>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <FeaturesSection />
+        <FAQSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </>
+  );
 }

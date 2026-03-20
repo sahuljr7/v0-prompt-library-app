@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from 'sonner'
 import { FavoritesProvider } from '@/components/providers/favorites-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -37,12 +38,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
-        <FavoritesProvider>
-          {children}
-          <Toaster position="bottom-right" />
-        </FavoritesProvider>
+        <ThemeProvider>
+          <FavoritesProvider>
+            {children}
+            <Toaster position="bottom-right" />
+          </FavoritesProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

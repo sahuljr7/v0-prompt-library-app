@@ -2,7 +2,7 @@
 
 import { Copy, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { Prompt } from '@/lib/types';
@@ -42,7 +42,7 @@ export function PreviewModal({
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <DialogTitle className="text-2xl">{prompt.title}</DialogTitle>
-              <p className="text-muted-foreground mt-2">{prompt.description}</p>
+              <DialogDescription className="mt-2">{prompt.description}</DialogDescription>
             </div>
           </div>
         </DialogHeader>
