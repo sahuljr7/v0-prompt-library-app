@@ -1,0 +1,72 @@
+'use client';
+
+import Link from 'next/link';
+import { ArrowRight, Sparkles } from 'lucide-react';
+
+export function HeroSection() {
+  return (
+    <section className="relative overflow-hidden pt-20 pb-32 sm:pt-32 sm:pb-40">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-primary/5 -z-10"></div>
+      
+      {/* Animated background elements */}
+      <div className="absolute top-20 -left-40 w-80 h-80 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob -z-10"></div>
+      <div className="absolute top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 -z-10"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center animate-fade-in">
+          {/* Badge */}
+          <div className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-4 py-2 mb-6 border border-primary/20">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Introducing PromptLib</span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
+            Premium AI Prompts
+            <br />
+            <span className="bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent">
+              For Every Creator
+            </span>
+          </h1>
+
+          {/* Subheading */}
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+            Discover thousands of expertly-crafted AI prompts. From content creation to coding, design to writing—everything you need to unlock your creativity.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <Link
+              href="/library"
+              className="group inline-flex items-center space-x-2 bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:translate-y-[-2px]"
+            >
+              <span>Explore Prompts</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+            <Link
+              href="/features"
+              className="inline-flex items-center space-x-2 border border-border bg-secondary/50 text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-secondary transition-all duration-300 hover:border-primary/50"
+            >
+              Learn More
+            </Link>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-md mx-auto pt-8 border-t border-border">
+            {[
+              { label: 'Prompts', value: '1000+' },
+              { label: 'Categories', value: '4' },
+              { label: 'Users', value: '5K+' },
+            ].map(({ label, value }) => (
+              <div key={label} className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-primary">{value}</div>
+                <div className="text-sm text-muted-foreground">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

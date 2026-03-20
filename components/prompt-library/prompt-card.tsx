@@ -27,7 +27,7 @@ export function PromptCard({ prompt, isFavorite, onFavoriteToggle, onClick }: Pr
   };
 
   return (
-    <Card className="hover:shadow-lg hover:border-primary/50 transition-all duration-300 group bg-secondary/40 border-border cursor-pointer" onClick={onClick}>
+    <Card className="hover:shadow-lg hover:border-primary/50 transition-all duration-300 group bg-secondary/40 border-border cursor-pointer hover:translate-y-[-4px] animate-fade-in" onClick={onClick}>
       <div className="p-5 flex flex-col h-full">
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
