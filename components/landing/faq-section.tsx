@@ -40,39 +40,39 @@ export function FAQSection() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-20 sm:py-32">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-20 lg:py-32">
+      <div className="max-w-3xl mx-auto px-3 sm:px-4 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <div className="text-center mb-10 sm:mb-16 animate-fade-in px-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
             Find answers to common questions about PromptLib
           </p>
         </div>
 
         {/* FAQ Items */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <button
               key={index}
               onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
-              className="w-full text-left p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-all duration-300 group"
+              className="w-full text-left p-3 sm:p-4 md:p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-all duration-300 group"
             >
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+              <div className="flex items-start sm:items-center justify-between gap-3">
+                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300 text-left">
                   {faq.question}
                 </h3>
                 <ChevronDown
-                  className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${
+                  className={`w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground transition-transform duration-300 flex-shrink-0 mt-0.5 ${
                     expandedIndex === index ? 'rotate-180' : ''
                   }`}
                 />
               </div>
 
               {expandedIndex === index && (
-                <p className="mt-4 text-muted-foreground leading-relaxed animate-fade-in">
+                <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed animate-fade-in">
                   {faq.answer}
                 </p>
               )}

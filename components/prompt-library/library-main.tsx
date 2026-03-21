@@ -58,25 +58,27 @@ export function PromptLibraryMain() {
   };
 
   return (
-    <div className="flex h-screen bg-background">
-      {/* Sidebar */}
+    <div className="flex flex-col lg:flex-row min-h-screen bg-background">
+      {/* Sidebar - Hidden on mobile, visible on lg */}
       {!isLoading && (
-        <Sidebar
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          promptCounts={promptCounts}
-        />
+        <div className="hidden lg:block lg:w-64 border-r border-border bg-secondary/30">
+          <Sidebar
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            promptCounts={promptCounts}
+          />
+        </div>
       )}
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="border-b border-border bg-secondary/20 p-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-2">
-              <h1 className="text-3xl font-bold text-foreground">Prompt Library</h1>
-              <p className="text-muted-foreground mt-1">
+        <div className="border-b border-border bg-secondary/20 p-4 sm:p-6">
+          <div className="max-w-7xl mx-auto w-full px-2 sm:px-0">
+            <div className="mb-4">
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Prompt Library</h1>
+              <p className="text-sm sm:text-base text-muted-foreground mt-1">
                 Discover and organize AI prompts for your creative workflow
               </p>
             </div>
@@ -86,11 +88,42 @@ export function PromptLibraryMain() {
           </div>
         </div>
 
+        {/* Mobile Category Filter */}
+        {!isLoading && (
+          <div className="lg:hidden border-b border-border overflow-x-auto">
+            <div className="flex gap-2 p-3 sm:p-4 whitespace-nowrap">
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+                  selectedCategory === null
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary/50 text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                All
+              </button>
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+                    selectedCategory === category
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary/50 text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Content Area */}
         <div className="flex-1 overflow-auto">
-          <div className="p-6 max-w-7xl mx-auto">
+          <div className="p-4 sm:p-6 max-w-7xl mx-auto w-full">
             {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <Skeleton key={i} className="h-64 rounded-lg" />
                 ))}
