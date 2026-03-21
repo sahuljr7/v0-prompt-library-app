@@ -8,7 +8,7 @@ import { useFavorites } from '@/components/providers/favorites-provider';
 import type { LibraryView } from '../library-view-switcher';
 
 interface LibraryHomeProps {
-  onNavigate: (view: LibraryView) => void;
+  onNavigate?: (view: LibraryView) => void;
 }
 
 export function LibraryHome({ onNavigate }: LibraryHomeProps) {

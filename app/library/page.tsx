@@ -11,19 +11,25 @@ export default function LibraryPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const { favorites } = useFavorites();
 
+  const handleViewChange = (view: LibraryView) => {
+    setCurrentView(view);
+  };
+
   return (
     <>
       <LibraryNavbar 
         currentView={currentView}
-        onViewChange={setCurrentView}
+        onViewChange={handleViewChange}
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         favoritesCount={favorites.size}
       />
       <main className="min-h-[calc(100vh-200px)]">
         <LibraryViewSwitcher 
-          initialView={currentView}
-          initialSearch={searchQuery}
+          currentView={currentView}
+          onViewChange={handleViewChange}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
         />
       </main>
       <Footer />
