@@ -6,15 +6,19 @@ import { ThemeToggle } from './theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+import type { LibraryView } from '@/components/prompt-library/library-view-switcher';
+
 interface LibraryNavbarProps {
-  onAddPromptClick?: () => void;
+  currentView?: LibraryView;
+  onViewChange?: (view: LibraryView) => void;
   favoritesCount?: number;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
 }
 
 export function LibraryNavbar({ 
-  onAddPromptClick, 
+  currentView = 'browse',
+  onViewChange,
   favoritesCount = 0,
   searchValue = '',
   onSearchChange
@@ -53,41 +57,35 @@ export function LibraryNavbar({
           {/* Quick Navigation Links */}
           <div className="hidden lg:flex items-center space-x-0.5">
             <Button
-              variant="ghost"
+              variant={currentView === 'home' ? 'default' : 'ghost'}
               size="sm"
+              onClick={() => onViewChange?.('home')}
               className="inline-flex items-center space-x-1.5 text-sm h-8"
-              asChild
             >
-              <Link href="/library">
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </Link>
+              <Home className="w-4 h-4" />
+              <span>Home</span>
             </Button>
             <Button
-              variant="ghost"
+              variant={currentView === 'browse' ? 'default' : 'ghost'}
               size="sm"
+              onClick={() => onViewChange?.('browse')}
               className="inline-flex items-center space-x-1.5 text-sm h-8"
-              asChild
             >
-              <Link href="/library">
-                <span>Browse</span>
-              </Link>
+              <span>Browse</span>
             </Button>
             <Button
-              variant="ghost"
+              variant={currentView === 'favorites' ? 'default' : 'ghost'}
               size="sm"
+              onClick={() => onViewChange?.('favorites')}
               className="inline-flex items-center space-x-1.5 text-sm h-8"
-              asChild
             >
-              <Link href="/library">
-                <Star className="w-4 h-4" />
-                <span>Favorites</span>
-                {favoritesCount > 0 && (
-                  <span className="ml-1 px-1.5 py-0.5 text-xs bg-primary/20 text-primary rounded-full font-semibold">
-                    {favoritesCount}
-                  </span>
-                )}
-              </Link>
+              <Star className="w-4 h-4" />
+              <span>Favorites</span>
+              {favoritesCount > 0 && (
+                <span className="ml-1 px-1.5 py-0.5 text-xs bg-primary/20 text-primary rounded-full font-semibold">
+                  {favoritesCount}
+                </span>
+              )}
             </Button>
           </div>
 
@@ -95,7 +93,7 @@ export function LibraryNavbar({
           <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0 ml-auto">
             {/* Add Prompt Button */}
             <Button
-              onClick={onAddPromptClick}
+              onClick={() => onViewChange?.('add')}
               className="inline-flex items-center space-x-1.5 text-xs sm:text-sm h-8 sm:h-9 px-2.5 sm:px-4 bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/50 transition-all duration-300"
             >
               <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

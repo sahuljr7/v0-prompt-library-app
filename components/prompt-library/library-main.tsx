@@ -8,13 +8,15 @@ import { Sidebar } from './sidebar';
 import { PromptList } from './prompt-list';
 import { PreviewModal } from './preview-modal';
 import { useFavorites } from '@/components/providers/favorites-provider';
+import { useAnalytics } from '@/components/providers/analytics-provider';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface PromptLibraryMainProps {
   initialSearch?: string;
+  onSearchChange?: (query: string) => void;
 }
 
-export function PromptLibraryMain({ initialSearch = '' }: PromptLibraryMainProps) {
+export function PromptLibraryMain({ initialSearch = '', onSearchChange }: PromptLibraryMainProps) {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
@@ -23,6 +25,7 @@ export function PromptLibraryMain({ initialSearch = '' }: PromptLibraryMainProps
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   
   const { favorites, toggleFavorite } = useFavorites();
+  const { trackView } = useAnalytics();
 
   // Load prompts on mount
   useEffect(() => {
@@ -57,8 +60,14 @@ export function PromptLibraryMain({ initialSearch = '' }: PromptLibraryMainProps
   }, [prompts, searchQuery, selectedCategory, favorites]);
 
   const handlePromptClick = (prompt: Prompt) => {
+    trackView(prompt.id, prompt.title, prompt.category);
     setSelectedPrompt(prompt);
     setIsPreviewOpen(true);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    onSearchChange?.(query);
   };
 
   return (
@@ -87,7 +96,7 @@ export function PromptLibraryMain({ initialSearch = '' }: PromptLibraryMainProps
               </p>
             </div>
             <div className="mt-4">
-              <SearchBar value={searchQuery} onChange={setSearchQuery} />
+              <SearchBar value={searchQuery} onChange={handleSearchChange} />
             </div>
           </div>
         </div>

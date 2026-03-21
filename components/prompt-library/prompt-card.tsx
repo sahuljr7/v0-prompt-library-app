@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { useAnalytics } from '@/components/providers/analytics-provider';
 import { Prompt } from '@/lib/types';
 
 interface PromptCardProps {
@@ -15,9 +16,12 @@ interface PromptCardProps {
 }
 
 export function PromptCard({ prompt, isFavorite, onFavoriteToggle, onClick }: PromptCardProps) {
+  const { trackCopy } = useAnalytics();
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(prompt.content);
+      trackCopy(prompt.id, prompt.title, prompt.category);
       toast.success('Copied to clipboard!', {
         description: prompt.title,
       });
