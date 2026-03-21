@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from 'sonner'
 import { FavoritesProvider } from '@/components/providers/favorites-provider'
+import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import './globals.css'
 
@@ -42,8 +43,10 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeProvider>
           <FavoritesProvider>
-            {children}
-            <Toaster position="bottom-right" />
+            <AnalyticsProvider>
+              {children}
+              <Toaster position="bottom-right" />
+            </AnalyticsProvider>
           </FavoritesProvider>
         </ThemeProvider>
         <Analytics />
