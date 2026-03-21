@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { PromptLibraryBrowse } from './views/library-browse';
 import { LibraryHome } from './views/library-home';
 import { LibraryFavorites } from './views/library-favorites';
@@ -9,32 +8,33 @@ import { AddPromptForm } from './views/add-prompt-form';
 export type LibraryView = 'home' | 'browse' | 'favorites' | 'add';
 
 interface LibraryViewSwitcherProps {
-  initialView?: LibraryView;
-  initialSearch?: string;
+  currentView?: LibraryView;
+  onViewChange?: (view: LibraryView) => void;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
 }
 
 export function LibraryViewSwitcher({ 
-  initialView = 'browse',
-  initialSearch = ''
+  currentView = 'browse',
+  onViewChange,
+  searchQuery = '',
+  onSearchChange
 }: LibraryViewSwitcherProps) {
-  const [currentView, setCurrentView] = useState<LibraryView>(initialView);
-  const [searchQuery, setSearchQuery] = useState(initialSearch);
-
   const renderView = () => {
     switch (currentView) {
       case 'home':
-        return <LibraryHome onNavigate={setCurrentView} />;
+        return <LibraryHome onNavigate={onViewChange} />;
       case 'browse':
         return (
           <PromptLibraryBrowse 
             initialSearch={searchQuery}
-            onSearchChange={setSearchQuery}
+            onSearchChange={onSearchChange}
           />
         );
       case 'favorites':
         return <LibraryFavorites />;
       case 'add':
-        return <AddPromptForm onSuccess={() => setCurrentView('browse')} />;
+        return <AddPromptForm onSuccess={() => onViewChange?.('browse')} />;
       default:
         return <PromptLibraryBrowse initialSearch={searchQuery} />;
     }
