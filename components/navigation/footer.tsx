@@ -50,8 +50,8 @@ export function Footer() {
             <ul className="space-y-1.5 sm:space-y-2">
               {[
                 { href: '/about', label: 'About' },
-                { href: '#', label: 'Blog' },
-                { href: '#', label: 'Contact' },
+                { href: '/blog', label: 'Blog' },
+                { href: '/contact', label: 'Contact' },
               ].map(({ href, label }) => (
                 <li key={label}>
                   <Link
@@ -97,13 +97,13 @@ export function Footer() {
           </p>
           <div className="flex flex-wrap gap-4 sm:gap-6">
             <Link
-              href="#"
+              href="/privacy"
               className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               Privacy Policy
             </Link>
             <Link
-              href="#"
+              href="/terms"
               className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
               Terms of Service
