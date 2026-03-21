@@ -10,10 +10,14 @@ import { PreviewModal } from './preview-modal';
 import { useFavorites } from '@/components/providers/favorites-provider';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function PromptLibraryMain() {
+interface PromptLibraryMainProps {
+  initialSearch?: string;
+}
+
+export function PromptLibraryMain({ initialSearch = '' }: PromptLibraryMainProps) {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);

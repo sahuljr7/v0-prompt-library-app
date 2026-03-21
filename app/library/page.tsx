@@ -1,18 +1,21 @@
-import { Navbar } from '@/components/navigation/navbar';
+'use client';
+
+import { useState } from 'react';
+import { LibraryNavbar } from '@/components/navigation/library-navbar';
 import { Footer } from '@/components/navigation/footer';
 import { PromptLibraryMain } from '@/components/prompt-library/library-main';
 
-export const metadata = {
-  title: 'Prompt Library',
-  description: 'Browse and explore thousands of AI prompts',
-};
-
 export default function LibraryPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <>
-      <Navbar />
+      <LibraryNavbar 
+        searchValue={searchQuery}
+        onSearchChange={setSearchQuery}
+      />
       <main className="min-h-[calc(100vh-200px)]">
-        <PromptLibraryMain />
+        <PromptLibraryMain initialSearch={searchQuery} />
       </main>
       <Footer />
     </>
